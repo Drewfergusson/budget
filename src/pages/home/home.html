@@ -22,9 +22,11 @@
   </ion-item>
   <button class="submit-button" ion-button (click)="save(label, amount, date)">Save</button>
   <ion-list *ngFor="let item of items | async">
-    <p>
-      {{item.amount}} {{item.label}} {{item.date | date: "MMM dd"}}
-    </p>
-    <button (click)="delete(item.$key)">Delete</button>
+    <ion-row justify-content-between>
+      <p>
+        {{item.amount}} {{item.label}} {{item.date | date: "MMM dd"}}
+      </p>
+      <button (click)="delete(item.$key)" ion-button color="danger">Delete</button>
+    </ion-row>
   </ion-list>
 </ion-content>
