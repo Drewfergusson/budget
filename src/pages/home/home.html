@@ -1,14 +1,28 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Monthly Saving
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+   <h1>{{balance}}</h1>
+  <ion-item>
+    <ion-label stacked>Entry</ion-label>
+    <ion-input [(ngModel)]="label"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Amount</ion-label>
+    <ion-input type="number" [(ngModel)]="amount"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Date of Transaction</ion-label>
+    <ion-datetime displayFormat="MMMM D" [(ngModel)]="date"></ion-datetime>
+  </ion-item>
+  <button class="submit-button" ion-button (click)="save(label, amount, date)">Save</button>
+  <ion-list *ngFor="let item of items | async">
+    <p>{{item.label}} {{item.amount}}</p>
+    <button (click)="delete(item.$key)">Delete</button>
+  </ion-list>
 </ion-content>
