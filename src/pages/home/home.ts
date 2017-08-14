@@ -1,5 +1,5 @@
 import { Component, EventEmitter } from '@angular/core';
-import { NavController, Keyboard } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import moment from 'moment';
 import { Subject } from 'rxjs/Subject';
@@ -11,14 +11,14 @@ import { Subject } from 'rxjs/Subject';
 export class HomePage {
 
   items: FirebaseListObservable<any[]>;
-  entry: any = {};
   date: any;
+  label: string;
+  amount: number;
   queryObservable: FirebaseListObservable<any[]>;
   sizeSubject: Subject<any>;
   balance: number;
-  keyboardControls: any;
 
-  constructor(public navCtrl: NavController, db: AngularFireDatabase, public keyboard: Keyboard) {
+  constructor(public navCtrl: NavController, db: AngularFireDatabase) {
     this.items = db.list('/entries');
     this.sizeSubject = new Subject();
     this.queryObservable = db.list('/entries', {
@@ -26,12 +26,13 @@ export class HomePage {
         orderByChild: 'amount'
       }
     });
+
     this.date = moment().toISOString();
-    this.clearfields();
     this.sum();
   }
   clearfields() {
-    this.entry, this.balance = null
+    this.label = null;
+    this.amount = null;
   }
   save(label: string, amount: number, selectedDate: string) {
     this.items.push({
@@ -39,7 +40,7 @@ export class HomePage {
       amount: amount,
       date: selectedDate
     });
-    this.keyboardControls.close();
+    this.clearfields();
     this.sum();
   }
   sum() {
