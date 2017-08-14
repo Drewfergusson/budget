@@ -13,6 +13,7 @@ spending 'cash/cash-card' account.
 
 ### Forking
 If you decide to use this repo it looks for a src/enviroments/environemnt.ts file
+
 export const environment = {
   production: false,
   firebase: {
