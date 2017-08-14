@@ -10,3 +10,14 @@ based on predicting income
 ### Cash Card
 Once a budget is established the app helps setup the amount that should be in your open
 spending 'cash/cash-card' account.
+
+### Forking
+If you decide to use this repo it looks for a src/enviroments/environemnt.ts file
+export const environment = {
+  production: false,
+  firebase: {
+    apiKey: '<api-key>',
+    databaseURL: '<firebase-database-url>',
+    projectId: '<firebase-project-id>'
+  }
+};
