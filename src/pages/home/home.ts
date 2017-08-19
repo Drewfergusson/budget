@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import moment from 'moment';
 import { Subject } from 'rxjs/Subject';
+import { $, in$, $of } from 'moneysafe';
 
 @Component({
   selector: 'page-home',
@@ -34,20 +35,22 @@ export class HomePage {
     this.label = null;
     this.amount = null;
   }
-  save(label: string, amount: number, selectedDate: string) {
+  save(label: string, amount: number, selectedDate: string, tentative: boolean) {
     this.items.push({
       label: label,
       amount: amount,
-      date: selectedDate
+      date: selectedDate,
+      tentative: tentative
     });
     this.clearfields();
     this.sum();
   }
   sum() {
     this.queryObservable.subscribe(queryReturn => {
-      this.balance = queryReturn.reduce((acc, entry) => {
-        return acc + Number(entry.amount);
-      }, 0);
+      let ledgerSum = queryReturn.reduce((acc, entry) => {
+        return acc + $(entry.amount);
+      }, $(0));
+      this.balance = in$(ledgerSum);
     });
   }
   delete(entryKey: string) {

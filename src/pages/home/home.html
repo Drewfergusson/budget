@@ -24,7 +24,7 @@
     <ion-label>Date of Transaction</ion-label>
     <ion-datetime displayFormat="MMMM D" [(ngModel)]="date"></ion-datetime>
   </ion-item>
-  <button class="submit-button" ion-button (click)="save(label, amount, date)">Save</button>
+  <button class="submit-button" ion-button (click)="save(label, amount, date, tentativeTransaction)">Save</button>
   <ion-list *ngFor="let item of items | async">
     <ion-item-sliding>
       <ion-item>
