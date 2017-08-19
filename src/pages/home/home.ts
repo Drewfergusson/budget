@@ -11,12 +11,13 @@ import { Subject } from 'rxjs/Subject';
 export class HomePage {
 
   items: FirebaseListObservable<any[]>;
-  date: any;
+  date: any = moment().toISOString();
   label: string;
   amount: number;
   queryObservable: FirebaseListObservable<any[]>;
   sizeSubject: Subject<any>;
   balance: number;
+  tentativeTransaction: boolean = false;
 
   constructor(public navCtrl: NavController, db: AngularFireDatabase) {
     this.items = db.list('/entries');
@@ -27,7 +28,6 @@ export class HomePage {
       }
     });
 
-    this.date = moment().toISOString();
     this.sum();
   }
   clearfields() {
